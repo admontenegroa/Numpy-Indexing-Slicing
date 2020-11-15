@@ -1,16 +1,26 @@
 import numpy as np
 
 
-def localization(id_block=0):
+def subcube_extractor(id_block=0):
+    """
+    Locate the position of one of the 27 3x3x3 cubes inside a 9x9x9 cube
+    and return all its 27 values
+
+    :param id_block: Number identification of one of the 27 3x3x3 cube
+    :return block: A 3x3x3 subcube that contain 27 values
+    """
     coordinates = {
         'z': int(np.floor(id_block / 9)),
         'y': int(np.floor(id_block % 9 / 3)),
         'x': id_block % 3
     }
-    return coordinates
+
+    block = m[coordinates['z'] * 3:coordinates['z'] * 3 + 3, coordinates['y'] * 3:coordinates['y'] * 3 + 3,
+            coordinates['x'] * 3:coordinates['x'] * 3 + 3]
+    return block
 
 
-def exchange(first_block = 0, second_block=  17):
+def exchange(first_block=0, second_block=17):
     """
     Exchange the position of two 3x3x3 blocks that make up
     a 9x9x9 block.
@@ -33,26 +43,20 @@ def exchange(first_block = 0, second_block=  17):
 
     m = np.arange(729).reshape(9, 9, 9)
 
-    block_a = localization(first_block)
+    a = subcube_extractor(first_block)
 
-    A = m[block_a['z'] * 3:block_a['z'] * 3 + 3, block_a['y'] * 3:block_a['y'] * 3 + 3,
-        block_a['x'] * 3:block_a['x'] * 3 + 3]
-
-    block_b = localization(second_block)
-
-    B = m[block_b['z'] * 3:block_b['z'] * 3 + 3, block_b['y'] * 3:block_b['y'] * 3 + 3,
-        block_b['x'] * 3:block_b['x'] * 3 + 3]
+    b = subcube_extractor(second_block)
 
     print('First Block')
-    print(A)
+    print(a)
     print('\n')
     print('Second Block')
-    print(B)
+    print(b)
 
-    aux = A.copy()
+    aux = a.copy()
 
     m[block_a['z'] * 3:block_a['z'] * 3 + 3, block_a['y'] * 3:block_a['y'] * 3 + 3,
-    block_a['x'] * 3:block_a['x'] * 3 + 3] = B
+    block_a['x'] * 3:block_a['x'] * 3 + 3] = b
 
     m[block_b['z'] * 3:block_b['z'] * 3 + 3, block_b['y'] * 3:block_b['y'] * 3 + 3,
     block_b['x'] * 3:block_b['x'] * 3 + 3] = aux
@@ -61,5 +65,5 @@ def exchange(first_block = 0, second_block=  17):
 
 
 if __name__ == '__main__':
-    m = exchange(2, 5)
-    print(m)
+    cube = exchange(2, 5)
+    print(cube)
