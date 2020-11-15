@@ -1,8 +1,18 @@
 import numpy as np
 
 
-def exchange(first_block=0, second_block=17):
-    """Exchange the position of two 3x3x3 blocks that make up
+def localization(id_block=0):
+    coordinates = {
+        'z': int(np.floor(id_block / 9)),
+        'y': int(np.floor(id_block % 9 / 3)),
+        'x': id_block % 3
+    }
+    return coordinates
+
+
+def exchange(first_block = 0, second_block=  17):
+    """
+    Exchange the position of two 3x3x3 blocks that make up
     a 9x9x9 block.
 
     The 3x3x3 blocks position is from 0 to 26.
@@ -23,20 +33,12 @@ def exchange(first_block=0, second_block=17):
 
     m = np.arange(729).reshape(9, 9, 9)
 
-    block_a = {
-        'z': int(np.floor(first_block / 9)),
-        'y': int(np.floor(first_block % 9 / 3)),
-        'x': first_block % 3
-    }
+    block_a = localization(first_block)
 
     A = m[block_a['z'] * 3:block_a['z'] * 3 + 3, block_a['y'] * 3:block_a['y'] * 3 + 3,
         block_a['x'] * 3:block_a['x'] * 3 + 3]
 
-    block_b = {
-        'z': int(np.floor(second_block / 9)),
-        'y': int(np.floor(second_block % 9 / 3)),
-        'x': second_block % 3
-    }
+    block_b = localization(second_block)
 
     B = m[block_b['z'] * 3:block_b['z'] * 3 + 3, block_b['y'] * 3:block_b['y'] * 3 + 3,
         block_b['x'] * 3:block_b['x'] * 3 + 3]
@@ -58,9 +60,6 @@ def exchange(first_block=0, second_block=17):
     return m
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    m = exchange(2,5)
+    m = exchange(2, 5)
     print(m)
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
