@@ -15,8 +15,10 @@ def subcube_extractor(id_block=0):
         'x': id_block % 3
     }
 
-    block = m[coordinates['z'] * 3:coordinates['z'] * 3 + 3, coordinates['y'] * 3:coordinates['y'] * 3 + 3,
-            coordinates['x'] * 3:coordinates['x'] * 3 + 3]
+    block = m[
+            coordinates['z'] * 3:coordinates['z'] * 3 + 3, coordinates['y'] * 3:coordinates['y'] * 3 + 3,
+            coordinates['x'] * 3:coordinates['x'] * 3 + 3
+            ]
     return block
 
 
@@ -56,10 +58,10 @@ def exchange(first_block=0, second_block=17):
     aux = a.copy()
 
     m[block_a['z'] * 3:block_a['z'] * 3 + 3, block_a['y'] * 3:block_a['y'] * 3 + 3,
-    block_a['x'] * 3:block_a['x'] * 3 + 3] = b
+        block_a['x'] * 3:block_a['x'] * 3 + 3] = b
 
     m[block_b['z'] * 3:block_b['z'] * 3 + 3, block_b['y'] * 3:block_b['y'] * 3 + 3,
-    block_b['x'] * 3:block_b['x'] * 3 + 3] = aux
+        block_b['x'] * 3:block_b['x'] * 3 + 3] = aux
 
     return m
 
