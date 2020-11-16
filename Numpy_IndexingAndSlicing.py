@@ -19,7 +19,7 @@ def subcube_extractor(id_block=0):
             coordinates['z'] * 3:coordinates['z'] * 3 + 3, coordinates['y'] * 3:coordinates['y'] * 3 + 3,
             coordinates['x'] * 3:coordinates['x'] * 3 + 3
             ]
-    return block
+    return block, coordinates
 
 
 def exchange(first_block=0, second_block=17):
@@ -45,9 +45,9 @@ def exchange(first_block=0, second_block=17):
 
     m = np.arange(729).reshape(9, 9, 9)
 
-    a = subcube_extractor(first_block)
+    a, block_a = subcube_extractor(first_block)
 
-    b = subcube_extractor(second_block)
+    b, block_b = subcube_extractor(second_block)
 
     print('First Block')
     print(a)
